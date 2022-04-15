@@ -33,8 +33,14 @@ def run():
         for i in range(0, len_string - 1):
             if letra == str_pal[i + 2:i + 3:]:
                 print(str_pal[i + 2:i + 3:], end=" ")
+                letrax.append(str_pal[i + 2:i + 3:])
+
+            elif letrax[i] != "":
+                print(str_pal[i + 2:i + 3:], end=" ")
+                
             else:                
                 print("_", end=" ")
+                letrax.append("")
 
         print(str_pal[2:len_string + 1:])
 
