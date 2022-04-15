@@ -4,20 +4,22 @@
 #Metodo get en diccionarios
 #os.system("cls") limpiar pantalla
 #Jorge Mejicanos
-#Yorchriv
+#github.com/Yorchriv
 
-from operator import truediv
+from operator import le, truediv
 import os
 import random
+
 
 def run():
     ganaste = False
     palabras = []
     letrax = []
     letra = ""
-    imp_pal = ""
+    vidas = 1
+    estado_ant = ""
+    save = ""
     
-
     with open("./data.txt", "r", encoding="utf-8") as f:
         for names in f:
             palabras.append(str(names))
@@ -28,32 +30,103 @@ def run():
     str_pal = "".join(pal) #Convertir a string la variable pal
 
     for i in range(0, len_string - 1):
-        letrax.append("_ ")
+        letrax.append("_")
 
     while ganaste == False:
-        print("Adivina la palabra!\n")
-
+        os.system("cls") #Limpiar pantalla
+        print("Juego del Ahorcado!")
+        print("Adivina la palabra!")
         for i in range(0, len_string - 1):
             if letra == str_pal[i + 2:i + 3:]:
-                # print(str_pal[i + 2:i + 3:], end=" ")
-                letrax[i] = str_pal[i + 2:i + 3:] + " "
-            # else:                
-                # print("_", end=" ")
+                letrax[i] = str_pal[i + 2:i + 3:]
 
-        print(str_pal[2:len_string + 1:])
         str_letrax = "".join(letrax) #Convertir letrax en string
         print(str_letrax)
 
-        letra = input("Ingrese una Letra: ")
-
-        if letra == "-":
+        if str_letrax == str_pal[2:len_string + 1:] or letra == "-":
             ganaste = True
+            os.system("cls") #Limpiar pantalla
+            print("Felicidades Has ganado, la palabra es: " + str_pal[2:len_string + 1:])
+        elif vidas >= 6:
+             os.system("cls") #Limpiar pantalla
+             ahorcado(7)
+             print("Has perdido :( la palabra era: " + str_pal[2:len_string + 1:])
+             ganaste = True
+
         else:
-            ganaste = False
-        # letra = input("Ingrese una letra: ")
+            if save == str_letrax:
+                vidas += 1
+            else:
+                save = str_letrax
+                ganaste = False
+            ahorcado(vidas)
+            letra = input("Ingrese una Letra: ")
         
-        # os.system("pause") #pausa
-        #os.system("cls") #Limpiar pantalla
+        
+    
+
+        
+def ahorcado(num_int): #Datos del ahorcado
+    intento = {
+        1:
+        "  ____ \n"
+        " |    |\n"
+        "      |\n"
+        "      |\n"
+        "      |\n"
+        "      |\n"
+        "-------\n",
+        2:
+        "  ____ \n"
+        " |    |\n"
+        " 0    |\n"
+        "      |\n"
+        "      |\n"
+        "      |\n"
+        "-------\n",
+        3:
+        "  ____ \n"
+        " |    |\n"
+        " 0/   |\n"
+        "      |\n"
+        "      |\n"
+        "      |\n"
+        "-------\n",
+        4:
+        "  ____ \n"
+        " |    |\n"
+        "_0/   |\n"
+        "      |\n"
+        "      |\n"
+        "      |\n"
+        "-------\n",
+        5:
+        "  ____ \n"
+        " |    |\n"
+        "_0/   |\n"
+        " |    |\n"
+        "      |\n"
+        "      |\n"
+        "-------\n",
+        6:
+        "  ____ \n"
+        " |    |\n"
+        "_0/   |\n"
+        " |    |\n"
+        "/     |\n"
+        "      |\n"
+        "-------\n",
+        7:
+        "  ____ \n"
+        " |    |\n"
+        "_X/   |\n"
+        " |    |\n"
+        "/ \   |\n"
+        "      |\n"
+        "-------\n"
+        }
+    return print(intento[num_int])
+
 
 if __name__ == '__main__':
     run()
