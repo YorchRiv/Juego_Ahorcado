@@ -14,6 +14,7 @@ def run():
     ganaste = False
     palabras = []
     letrax = []
+    letra = ""
     
 
     with open("./data.txt", "r", encoding="utf-8") as f:
@@ -30,14 +31,23 @@ def run():
         print("Adivina la palabra!\n")
 
         for i in range(0, len_string - 1):
-            print("_", end=" ")
+            if letra == str_pal[i + 2:i + 3:]:
+                print(str_pal[i + 2:i + 3:], end=" ")
+            else:                
+                print("_", end=" ")
 
         print(str_pal[2:len_string + 1:])
+
+        letra = input("Ingrese una Letra: ")
+
+        if letra == "-":
+            ganaste = True
+        else:
+            ganaste = False
         # letra = input("Ingrese una letra: ")
         
         # os.system("pause") #pausa
-        # os.system("cls") #Limpiar pantalla
-        ganaste = True
+        #os.system("cls") #Limpiar pantalla
 
 if __name__ == '__main__':
     run()
